@@ -1,0 +1,126 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+    <ui:define name="body">
+    <h:form>
+
+        <h1>BRMS / JBPM</h1>
+        <rich:panel>
+            <h:panelGrid columns="2">
+                <div class="info">
+                    <p>It is a simple project demonstrating the use of Human Tasks</p>
+                </div>
+            </h:panelGrid>
+        </rich:panel>
+        <h:commandLink action="#{taskController.createNewProcess}" value="Create new process" /> <br/>
+        <rich:dataTable id="tableProcess" value="#{processInstanceController.processInstances}" var="process" >
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Process Instance ID" />
+            </f:facet>
+            <h:outputText value="#{process.id}" />
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Process ID" />
+            </f:facet>
+            <h:outputText value="#{process.processId}" />
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Process Name" />
+            </f:facet>
+            <h:outputText value="#{process}" />
+        </rich:column>
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="State" />
+            </f:facet>
+            <h:outputText value="#{process.state == 1 ? 'Active': 'Completed'}" />
+        </rich:column>                                 	                              	
+        </rich:dataTable>
+        
+        
+        <rich:panel header="Kris Task" >        
+        <rich:dataTable value="#{taskController.krisTasks}" var="krisTask">
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Task Id"/>
+            </f:facet>
+            <h:outputText value="#{krisTask.id}"/>
+        </rich:column> 
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{krisTask.name}"/>
+        </rich:column>
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Status"/>
+            </f:facet>
+            <h:outputText value="#{krisTask.status}"/>
+        </rich:column>
+        
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Action"/>
+            </f:facet>
+            <h:commandLink value="Start" action="#{taskController.startTask}" rendered="#{krisTask.status == 'Reserved'}">
+			   <f:setPropertyActionListener target="#{taskController.selectedTask}" value="#{krisTask}"/> 
+			</h:commandLink>            
+			<h:commandLink value="Complete" action="#{taskController.completeTask}" rendered="#{krisTask.status == 'InProgress'}">
+			   <f:setPropertyActionListener target="#{taskController.selectedTask}" value="#{krisTask}"/> 
+			</h:commandLink>					
+        </rich:column> 
+        
+        </rich:dataTable>
+        
+        </rich:panel>
+        
+       <rich:panel header="John Task" >        
+        <rich:dataTable value="#{taskController.johnTasks}" var="johnTask">
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Task Id"/>
+            </f:facet>
+            <h:outputText value="#{johnTask.id}"/>
+        </rich:column> 
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{johnTask.name}"/>
+        </rich:column>
+         <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Status"/>
+            </f:facet>
+            <h:outputText value="#{johnTask.status}"/>
+        </rich:column>
+        
+        <rich:column>
+            <f:facet name="header">
+               <h:outputText value="Action"/>
+            </f:facet>
+            <h:commandLink value="Start" action="#{taskController.startTask}" rendered="#{johnTask.status == 'Reserved'}" >
+			   <f:setPropertyActionListener target="#{taskController.selectedTask}" value="#{johnTask}"/> 
+			</h:commandLink>
+            <h:commandLink value="Complete" action="#{taskController.completeTask}" rendered="#{johnTask.status == 'InProgress'}">
+			   <f:setPropertyActionListener target="#{taskController.selectedTask}" value="#{johnTask}"/> 
+			</h:commandLink>					
+        </rich:column> 
+        
+        </rich:dataTable>
+        
+        </rich:panel>        
+        
+     </h:form>
+    </ui:define>
+</ui:composition>
