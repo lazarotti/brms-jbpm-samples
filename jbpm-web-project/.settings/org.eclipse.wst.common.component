@@ -3,6 +3,7 @@
     <wb-module deploy-name="jbpm-web-project">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/JavaSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <property name="context-root" value="jbpm-web-project"/>
         <property name="java-output-path" value="/jbpm-web-project/WebContent/WEB-INF/classes"/>
     </wb-module>
